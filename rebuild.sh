@@ -11,6 +11,6 @@ function build
 
 build
 while true; do
-    find . -name '*.rl' -o -name '*.py' -o -name '*.c' -exec inotifywait -e MOVE_SELF {} +;
+    find . \( -name '*.rl' -o -name '*.py' -o -name '*.c' \) -exec inotifywait -e MOVE_SELF {} +;
     build;
 done
