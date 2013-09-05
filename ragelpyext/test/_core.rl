@@ -1,4 +1,5 @@
 #include <Python.h>
+#include <RLPY.h>
 
 static PyObject *
 py_is_hello(PyObject *self, PyObject *args);
@@ -23,6 +24,7 @@ py_is_hello(PyObject *self, PyObject *args)
 
     // The python string to parse (required by ragel)
     PyObject *data;
+    RLPY_state rlpy_state = {};
 
     int err = PyArg_ParseTuple(args, "U", &data);
     if (!err) {
@@ -30,11 +32,8 @@ py_is_hello(PyObject *self, PyObject *args)
     }
 
     // start and end offsets in data string
-    int p = 0;
-    int pe = PyUnicode_GET_LENGTH(data);
-
-    // current state (required by ragel)
-    int cs = 0;
+    rlpy_state.pe = PyUnicode_GET_LENGTH(data);
+    rlpy_state.eof = rlpy_state.pe;
 
     %% write init;
     %% write exec;
