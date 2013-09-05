@@ -53,6 +53,9 @@ class build_ragel_ext(build_ext):
             self.ragel_include_dirs = []
         elif isinstance(self.ragel_include_dirs, str):
             self.ragel_include_dirs = self.ragel_include_dirs.split(os.pathsep)
+        ragel_dirs = [pkg_resources.resource_filename('ragelpyext', 'include')]
+        self.ragel_include_dirs += ragel_dirs
+        self.include_dirs += ragel_dirs
         if self.ragel_extra_args is None:
             self.ragel_extra_args = []
 
@@ -72,8 +75,6 @@ class build_ragel_ext(build_ext):
                              for source in ragel_sources]
 
         command = ['ragel', '-C']
-        command += ['-I',
-                    pkg_resources.resource_filename('ragelpyext', 'include')]
 
         for include_dir in set(ext.ragel_include_dirs +
                                self.ragel_include_dirs):
@@ -88,5 +89,4 @@ class build_ragel_ext(build_ext):
 
         # delegate to base class to compile everything else
         ext.sources = generated_sources + other_sources
-        print(ext.sources)
-        build_ext.build_extension(self, ext)
+        super(build_ragel_ext, self).build_extension(ext)
