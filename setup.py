@@ -9,6 +9,9 @@ setup(name='RagelPyExt',
       author_email='bwhmather@bwhmather.com',
       url='https://github.com/bwhmather/ragel-py-ext/',
       ext_modules=[
+          RagelExtension(
+              'ragelpyext.test._core',
+              ['ragelpyext/test/_core.rl']),
       ],
       cmdclass={'build_ext': build_ragel_ext},
       packages=['ragelpyext'])
