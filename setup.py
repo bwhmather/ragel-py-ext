@@ -12,6 +12,9 @@ setup(name='RagelPyExt',
           RagelExtension(
               'ragelpyext.test._core',
               ['ragelpyext/test/_core.rl']),
+          RagelExtension(
+              'ragelpyext.test._string',
+              ['ragelpyext/test/_string.rl']),
       ],
       cmdclass={'build_ext': build_ragel_ext},
       packages=['ragelpyext'])
